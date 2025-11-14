@@ -23,7 +23,7 @@ public interface BeerControllerDocs {
             @ApiResponse(code = 201, message = "Success beer creation"),
             @ApiResponse(code = 400, message = "Missing required fields or wrong field range value.")
     })
-    BeerDTO createBeer(BeerDTO beerDTO) throws BeerAlreadyRegisteredException;
+    BeerDTO createBeer(@RequestBody @Valid BeerDTO beerDTO) throws BeerAlreadyRegisteredException;
 
     @ApiOperation(value = "Returns beer found by a given name")
     @ApiResponses(value = {
@@ -44,4 +44,24 @@ public interface BeerControllerDocs {
             @ApiResponse(code = 404, message = "Beer with given id not found.")
     })
     void deleteById(@PathVariable Long id) throws BeerNotFoundException;
+
+    @ApiOperation(value = "Increment beer stock quantity")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Beer stock incremented successfully"),
+            @ApiResponse(code = 404, message = "Beer with given id not found."),
+            @ApiResponse(code = 400, message = "Beer stock cannot exceed max capacity.")
+    })
+    BeerDTO increment(@PathVariable Long id,
+                      @RequestBody @Valid QuantityDTO quantityDTO)
+            throws BeerNotFoundException, BeerStockExceededException;
+
+    @ApiOperation(value = "Decrement beer stock quantity")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Beer stock decremented successfully"),
+            @ApiResponse(code = 404, message = "Beer with given id not found."),
+            @ApiResponse(code = 400, message = "Beer stock cannot be lower than zero.")
+    })
+    BeerDTO decrement(@PathVariable Long id,
+                      @RequestBody @Valid QuantityDTO quantityDTO)
+            throws BeerNotFoundException, BeerStockExceededException;
 }
