@@ -1,56 +1,82 @@
-<h2>Digital Innovation: Expert class - Desenvolvimento de testes unitários para validar uma API REST de gerenciamento de estoques de cerveja.</h2>
+--- Beer API - Digital Innovation One (forkado)
+API REST para gerenciamento de estoques de cerveja, desenvolvida com Spring Boot.  
+Este projeto foi utilizado em um projeto da DIO para demonstrar testes unitários com JUnit e Mockito, além da prática de TDD e modificado por mim de acordo com a
+proposta do desafio .
 
-Nesta live coding, vamos aprender a testar, unitariamente, uma API REST para o gerenciamento de estoques de cerveja. Vamos desenvolver testes unitários para validar o nosso sistema de gerenciamento de estoques de cerveja, e também apresentar os principais conceitos e vantagens de criar testes unitários com JUnit e Mockito. Além disso, vamos também mostrar como desenvolver funcionalidades da nossa API através da prática do TDD.
+--- Funcionalidades
+-- A API permite:
+- Criar uma cerveja (POST /api/v1/beers)
+- Listar todas as cervejas (GET /api/v1/beers)
+- Buscar cerveja por nome (GET /api/v1/beers/{name})
+- Deletar cerveja por ID (DELETE /api/v1/beers/{id})
+- Incrementar estoque (PATCH /api/v1/beers/{id}/increment)
+- Decrementar estoque (PATCH /api/v1/beers/{id}/decrement) 
 
-Durante a sessão, serão abordados os seguintes tópicos:
+--- Tecnologias utilizadas
+- Java 14+
+- Spring Boot
+- Maven 3.6.3+
+- JUnit 5
+- Mockito
+- Hamcrest
+- Swagger (documentação da API)
+- Postman (coleção de requisições)
 
-* Baixar um projeto através do Git para desenolver nossos testes unitários. 
-* Apresentação conceitual sobre testes: a pirâmide dos tipos de testes, e também a importância de cada tipo de teste durante o ciclo de desenvolvimento.
-* Foco nos testes unitários: mostrar o porque é importante o desenvolvimento destes tipos de testes como parte do ciclo de desenvolvimento de software.
-* Principais frameworks para testes unitários em Java: JUnit, Mockito e Hamcrest. 
-* Desenvolvimento de testes unitários para validação de funcionalides básicas: criação, listagem, consulta por nome e exclusão de cervejas.
-* TDD: apresentação e exemplo prático em 2 funcionaliades importantes: incremento e decremento do número de cervejas no estoque.
+--- Pré-requisitos
+- Java 14 ou superior
+- Maven 3.6.3 ou superior
+- Git instalado
+- IDE (IntelliJ IDEA Community Edition ou outra)
 
-Para executar o projeto no terminal, digite o seguinte comando:
+--- Como executar
+-- Rodar a aplicação:
+- bash
+mvn spring-boot:run
+Rodar os testes:
 
-```shell script
-mvn spring-boot:run 
-```
-
-Para executar a suíte de testes desenvolvida durante a live coding, basta executar o seguinte comando:
-
-```shell script
+- bash
 mvn clean test
-```
+Acesse a API em:
 
-Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto:
+--- Testes Unitários
+-- Os testes unitários foram desenvolvidos com JUnit 5 e Mockito, cobrindo os seguintes cenários:
+- Criação de cerveja
+- Busca por nome
+- Listagem
+- Exclusão
+- Incremento de estoque
+- Decremento de estoque 
+- Decremento normal
+- Decremento até zerar estoque
+- Decremento abaixo de zero (lança exceção)
+- Decremento com ID inválido (lança exceção)
 
-```
-http://localhost:8080/api/v1/beers
-```
+--- Documentação Swagger
+-- A API está documentada com Swagger. Endpoints disponíveis:
+- POST /api/v1/beers
+- GET /api/v1/beers/{name}
+- GET /api/v1/beers
+- DELETE /api/v1/beers/{id}
+- PATCH /api/v1/beers/{id}/increment
+- PATCH /api/v1/beers/{id}/decrement �
 
-São necessários os seguintes pré-requisitos para a execução do projeto desenvolvido durante a aula:
+--- Postman Collection
+-- O projeto inclui uma coleção Postman (postman/Beer API.postman_collection.json) com requisições prontas para testar a API:
+- List Beers
+- Create Beer
+- Get Beer by Name
+- Delete Beer by ID
+- Increment Beer Stock 
+- Decrement Beer Stock 
 
-* Java 14 ou versões superiores.
-* Maven 3.6.3 ou versões superiores.
-* Intellj IDEA Community Edition ou sua IDE favorita.
-* Controle de versão GIT instalado na sua máquina.
-* Muita vontade de aprender e compartilhar conhecimento :)
+--- Alterações realizadas
+-- Durante o desenvolvimento foram adicionadas as seguintes melhorias:
+- BeerService
+- Implementado método decrement(Long id, int quantityToDecrement).
+- BeerController
+- Criado endpoint REST PATCH /api/v1/beers/{id}/decrement.
+- BeerControllerDocs
+- Documentação Swagger atualizada para incluir increment e decrement.
+Postman Collection
 
-Abaixo, seguem links bem bacanas, sobre tópicos mencionados durante a aula:
-
-* [SDKMan! para gerenciamento e instalação do Java e Maven](https://sdkman.io/)
-* [Referência do Intellij IDEA Community, para download](https://www.jetbrains.com/idea/download)
-* [Palheta de atalhos de comandos do Intellij](https://resources.jetbrains.com/storage/products/intellij-idea/docs/IntelliJIDEA_ReferenceCard.pdf)
-* [Site oficial do Spring](https://spring.io/)
-* [Site oficial JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
-* [Site oficial Mockito](https://site.mockito.org/)
-* [Site oficial Hamcrest](http://hamcrest.org/JavaHamcrest/)
-* [Referências - testes em geral com o Spring Boot](https://www.baeldung.com/spring-boot-testing)
-* [Referência para o padrão arquitetural REST](https://restfulapi.net/)
-* [Referência pirâmide de testes - Martin Fowler](https://martinfowler.com/articles/practical-test-pyramid.html#TheImportanceOftestAutomation)
-
-[Neste link](https://drive.google.com/file/d/1KPh19mvyKirorOI-UsEYHKkmZpet3Ks6/view?usp=sharing), seguem os slides apresentados como o roteiro utilizado para o desenvolvimento do projeto da nossa sessão.
-
-
-
+Adicionada requisição para PATCH /api/v1/beers/{id}/decrement.
